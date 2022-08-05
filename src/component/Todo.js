@@ -3,20 +3,30 @@ import { useState } from "react";
 import Modal from "./Modal";
 import Backdrop from "./Backdrop";
 function Todo(props) {
+  // Set State
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  function handleClick() {
+  //   Open Modal
+  function deleteHandler() {
     setModalIsOpen(true);
+  }
+
+  //   Close Modal
+  function CloseModalHandler() {
+    setModalIsOpen(false);
   }
   return (
     <div className="card">
       <h2>{props.text}</h2>
       <div className="actions">
-        <button className="btn" onClick={handleClick}>
+        <button className="btn" onClick={deleteHandler}>
           Delete
         </button>
       </div>
-      {modalIsOpen && <Modal />}
-      {modalIsOpen && <Backdrop />}
+      {/* Condition rendering */}
+      {modalIsOpen && (
+        <Modal onCancel={CloseModalHandler} onConfirm={CloseModalHandler} />
+      )}
+      {modalIsOpen && <Backdrop onCancel={CloseModalHandler} />}
     </div>
   );
 }
